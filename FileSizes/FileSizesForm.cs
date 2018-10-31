@@ -14,63 +14,53 @@ namespace FileSizes
     public partial class FileSizesForm : Form
     {
 
-        
+
 
         public FileSizesForm()
         {
             InitializeComponent();
-            directoryComboBox.Items.Add("Parent Directory");
-            directoryComboBox.Items.Add(Directory.GetCurrentDirectory());
-            directoryComboBox.Items.AddRange(Directory.GetDirectories(Directory.GetCurrentDirectory()));
-            label3.Text = Directory.GetCurrentDirectory();
-            foreach (var fileName in Directory.GetFiles(Directory.GetCurrentDirectory()))
-            {
-                FileInfo fileInfo = new FileInfo(fileName);
-                fileInfoBox.AppendText(String.Format("{0,-30}{1,22:N0}\n", fileInfo.Name, fileInfo.Length));
-            }
+            UpdateUI();
         }
 
         private void ComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (directoryComboBox.SelectedItem.ToString().Equals("Parent Directory"))
+            try
             {
-                fileInfoBox.Focus();
-                directoryComboBox.Items.Clear();
-                Directory.SetCurrentDirectory(Directory.GetParent(Directory.GetCurrentDirectory()).ToString());
-                directoryComboBox.Items.Add("Parent Directory");
-                directoryComboBox.Items.Add(Directory.GetCurrentDirectory());
-                directoryComboBox.Items.AddRange(Directory.GetDirectories(Directory.GetCurrentDirectory()));
-                label3.Text = Directory.GetCurrentDirectory();
+                if (directoryComboBox.SelectedItem.ToString().Equals("Parent Directory"))
+                {
+                    Directory.SetCurrentDirectory(Directory.GetParent(Directory.GetCurrentDirectory()).ToString());
+                }
+                else
+                {
+                    Directory.SetCurrentDirectory(directoryComboBox.SelectedItem.ToString());
+                }
+                UpdateUI();
             }
-            else
+            catch (Exception ex)
             {
-                fileInfoBox.Focus();
-                fileInfoBox.Clear();
-                Directory.SetCurrentDirectory(directoryComboBox.SelectedItem.ToString());
-                directoryComboBox.Items.Clear();
-                directoryComboBox.Items.Add("Parent Directory");
-                directoryComboBox.Items.Add(Directory.GetCurrentDirectory());
-                label3.Text = Directory.GetCurrentDirectory();
-                try
-                {
-                    directoryComboBox.Items.AddRange(Directory.GetDirectories(Directory.GetCurrentDirectory()));
-                }
-                catch(Exception ex)
-                {
-                    MessageBox.Show(ex.ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-                foreach (var fileName in Directory.GetFiles(Directory.GetCurrentDirectory()))
-                {
-                    FileInfo fileInfo = new FileInfo(fileName);
-                    string filename = fileInfo.Name;
+                MessageBox.Show(ex.ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
 
-                    if (fileInfo.Name.Length > 30)
-                    {
-                        filename = fileInfo.Name.Substring(0, 26) + fileInfo.Extension; 
-                    }
 
-                    fileInfoBox.AppendText(String.Format("{0,-30}{1,22:N0}\n", filename, fileInfo.Length));
+        private void UpdateUI()
+        {
+            fileInfoBox.Clear();
+            directoryComboBox.Items.Clear();
+            directoryComboBox.Items.Add("Parent Directory");
+            CurrentDirectory.Text = Directory.GetCurrentDirectory();
+            directoryComboBox.Items.AddRange(Directory.GetDirectories(Directory.GetCurrentDirectory()));
+            foreach (var fileName in Directory.GetFiles(Directory.GetCurrentDirectory()))
+            {
+                FileInfo fileInfo = new FileInfo(fileName);
+                string filename = fileInfo.Name;
+
+                if (fileInfo.Name.Length > 30)
+                {
+                    filename = fileInfo.Name.Substring(0, 26);
                 }
+
+                fileInfoBox.AppendText(String.Format("{0,-30}{1,22:N0}\n", filename, fileInfo.Length));
             }
         }
     }

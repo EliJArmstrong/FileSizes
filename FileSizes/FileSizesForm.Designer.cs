@@ -29,11 +29,11 @@
         private void InitializeComponent()
         {
             this.gradientGroup = new FileSizes.GradientGroup();
+            this.CurrentDirectory = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.fileInfoBox = new System.Windows.Forms.TextBox();
             this.directoryComboBox = new System.Windows.Forms.ComboBox();
-            this.label3 = new System.Windows.Forms.Label();
             this.gradientGroup.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -44,7 +44,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.gradientGroup.ColorBottom = System.Drawing.Color.Black;
             this.gradientGroup.ColorTop = System.Drawing.Color.Gray;
-            this.gradientGroup.Controls.Add(this.label3);
+            this.gradientGroup.Controls.Add(this.CurrentDirectory);
             this.gradientGroup.Controls.Add(this.label2);
             this.gradientGroup.Controls.Add(this.label1);
             this.gradientGroup.Controls.Add(this.fileInfoBox);
@@ -57,6 +57,16 @@
             this.gradientGroup.Size = new System.Drawing.Size(421, 457);
             this.gradientGroup.TabIndex = 0;
             this.gradientGroup.TabStop = false;
+            // 
+            // CurrentDirectory
+            // 
+            this.CurrentDirectory.AutoSize = true;
+            this.CurrentDirectory.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.CurrentDirectory.Location = new System.Drawing.Point(16, 39);
+            this.CurrentDirectory.Name = "CurrentDirectory";
+            this.CurrentDirectory.Size = new System.Drawing.Size(83, 13);
+            this.CurrentDirectory.TabIndex = 4;
+            this.CurrentDirectory.Text = "CurrentDirectory";
             // 
             // label2
             // 
@@ -86,7 +96,7 @@
             // 
             this.fileInfoBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.fileInfoBox.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.fileInfoBox.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.fileInfoBox.Location = new System.Drawing.Point(13, 84);
             this.fileInfoBox.Multiline = true;
             this.fileInfoBox.Name = "fileInfoBox";
@@ -108,16 +118,6 @@
             this.directoryComboBox.Size = new System.Drawing.Size(393, 21);
             this.directoryComboBox.TabIndex = 0;
             this.directoryComboBox.SelectedIndexChanged += new System.EventHandler(this.ComboBox_SelectedIndexChanged);
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.label3.Location = new System.Drawing.Point(16, 39);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(35, 13);
-            this.label3.TabIndex = 4;
-            this.label3.Text = "label3";
             // 
             // FileSizesForm
             // 
@@ -143,7 +143,7 @@
         private System.Windows.Forms.TextBox fileInfoBox;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label CurrentDirectory;
     }
 }
 
